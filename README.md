@@ -1,6 +1,6 @@
 # Dynamic Landing Page Deployment
 
-## 📌 Project Overview
+## Project Overview
 
 Prototype landing page showcasing **"The Future of Document Search for Legal Practitioners"**.
 
@@ -8,22 +8,21 @@ Goal: Demonstrate cloud provisioning and web deployment skills.
 
 ---
 
-## 🖥️ Server Provisioning
+## Provisioning the Server
 
-- **Cloud Provider:** AWS EC2
-- **Instance Type:** `t3.micro` (Free Tier)
-- **Operating System:** Ubuntu 22.04 LTS
+1. Created a new EC2 instance on AWS using Ubuntu 22.04.
+2. Chose the free-tier t3.micro instance.
 
 ### Steps:
 
 ```bash
 # Connect to instance
-ssh -i <key-file.pem> ubuntu@<ec2-public-ip>
+ssh -i Ubuntu-WSL.pem ubuntu@<ec2-public-ip>
 ```
 
 ---
 
-## 🌐 Web Server Setup
+## Web Server Setup
 
 - **Web Server:** Nginx
 - **Application Server:** Node.js (Express)
@@ -34,20 +33,29 @@ ssh -i <key-file.pem> ubuntu@<ec2-public-ip>
 ```bash
 sudo apt update
 sudo apt install nginx nodejs npm -y
-npm install express
-npm install -g pm2
 ```
 
-### 📂 Project Files
+## Creating the Project Folder
 
-- `server.js`: Node.js Express server to serve static files.
-- `public/index.html`: Main landing page HTML file.
+1. Created a dedicated folder for the project:
+   ```bash
+   mkdir bio-landing && cd bio-landing
+   ```
 
-Ensure both files are in the `~/bio-landing` directory as shown below.
+## Application Setup
+
+1. Initialized a Node.js project:
+   ```bash
+   npm init -y
+   ```
+2. Installed Express:
+   ```bash
+   npm install express
+   ```
+3. Created `server.js` file with basic Express server setup.
+4. Created a `public` folder containing the landing page (`index.html`) and styling files.
 
 ---
-
-## ⚙️ Application Setup
 
 ### Directory Structure:
 
@@ -72,13 +80,25 @@ app.listen(PORT, () => {
 });
 ```
 
-### Start Server with PM2:
+## Running the Application with PM2
 
-```bash
-pm2 start server.js
-pm2 save
-pm2 startup
-```
+1. Installed PM2 globally:
+   ```bash
+   npm install -g pm2
+   ```
+2. Started the app with PM2:
+   ```bash
+   pm2 start server.js
+   ```
+3. Enabled PM2 to restart app on reboot:
+   ```bash
+   pm2 startup
+   pm2 save
+   ```
+4. Checked the server log to make sure the server was running:
+   ```bash
+   pm2 logs server
+   ```
 
 ---
 
@@ -120,7 +140,7 @@ sudo systemctl reload nginx
 
 ---
 
-## 🔐 Networking & Security
+## Networking & Security
 
 **Security Group Configuration:**
 
@@ -132,27 +152,18 @@ sudo systemctl reload nginx
 
 ---
 
-## 🚀 Deployment URL
+## Deployment URL
 
 [http://ec2-51-21-168-120.eu-north-1.compute.amazonaws.com/](http://ec2-51-21-168-120.eu-north-1.compute.amazonaws.com/)
 
 ---
 
-## 🖼️ Landing Page Preview
+## Landing Page Preview
 
 ![Landing Page Screenshot](./images/landing-ss.png)
 
-## ❗ SSL Status
+## SSL Status
 
-SSL setup **attempted but skipped** due to issues with free domain registrars requiring suspicious payments.
-
-Focus was placed on ensuring **HTTP** accessibility for project completion.
-
----
-
-## 👤 Author Information
-
-**John Peter**  
-Frontend Developer | Aspiring Cloud Engineer
+SSL setup **attempted but skipped** due to issues with free domain registrars requiring suspicious payments. I decided to focus on ensuring **HTTP** accessibility for project completion.
 
 ---
